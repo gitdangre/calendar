@@ -158,10 +158,9 @@ const ResponsiveCalendar = () => {
               });
 
               return (
-                <>
+                <div key={fdi}>
                   {startPos >= 0 && divWidth >= 0 && (
                     <div
-                      key={fdi}
                       className="test"
                       style={{
                         top: 20 * (fdi + 1),
@@ -177,7 +176,7 @@ const ResponsiveCalendar = () => {
                       )} to ${utcToMMDDYYYY(fd.endDT, "full")}`}
                     </div>
                   )}
-                </>
+                </div>
               );
             });
 
@@ -215,7 +214,7 @@ const ResponsiveCalendar = () => {
                         }}
                       >
                         {day.format("D")}{" "}
-                        {mmddyyyToUnixTimestamp(day.format("MM/DD/YYYY"))}
+                        {/* {mmddyyyToUnixTimestamp(day.format("MM/DD/YYYY"))} */}
                       </span>
                     </div>
                   </div>
@@ -226,7 +225,7 @@ const ResponsiveCalendar = () => {
         })}
       </div>
       <pre>{JSON.stringify(selectedDate, 0, 3)}</pre>
-      <pre>{JSON.stringify(calendarData, 0, 3)}</pre>
+      {/* <pre>{JSON.stringify(calendarData, 0, 3)}</pre> */}
     </>
   );
 };

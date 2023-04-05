@@ -9,7 +9,7 @@
 .week {
   display: flex;
   position: relative;
-  height: 125px;
+  height: 185px;
 }
 
 .day {
@@ -60,8 +60,10 @@
 }
 .test {
   position: absolute;
-  font-size: 12px;
-  height: 18px;
+  font-size: 11px;
+  height: 16px;
+  color: #fff;
+  font-weight: bold;
   border: 1px solid #fff;
   border-radius: 5px;
   white-space: nowrap;

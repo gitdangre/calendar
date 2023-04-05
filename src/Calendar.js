@@ -43,7 +43,7 @@ const Calendar = () => {
         setSelectedDate={setSelectedDate}
       />
       <pre>{JSON.stringify(selectedDate, 0, 3)}</pre>
-      <pre>{JSON.stringify(calendarData, 0, 3)}</pre>
+      {/* <pre>{JSON.stringify(calendarData, 0, 3)}</pre> */}
     </>
   );
 };

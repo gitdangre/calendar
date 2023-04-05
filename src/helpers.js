@@ -74,3 +74,24 @@ export const prevMonth = (currentDate) => {
 export const nextMonth = (currentDate) => {
   return currentDate.clone().add(1, "month");
 };
+
+export const condenseCalendar = (weeklyData) => {
+  const weeklyDataClone = weeklyData;
+  weeklyDataClone.forEach((d, i) => {
+    for (let weekRow = 0; weekRow <= 12; weekRow++) {
+      const dataFilter = weeklyDataClone.filter((filteredData) => {
+        if (
+          filteredData.step === weekRow &&
+          filteredData.weekEnd >= d.weekStart
+        )
+          return true;
+        return false;
+      });
+      if (dataFilter.length === 0) {
+        weeklyDataClone[i] = { ...weeklyDataClone[i], step: weekRow };
+        break;
+      }
+    }
+  });
+  return weeklyDataClone;
+};

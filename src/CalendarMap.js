@@ -5,34 +5,11 @@ import {
   utcToMMDDYYYY,
   mmddyyyToUnixTimestamp,
   isoToUnixTimestamp,
+  condenseCalendar,
 } from "./helpers";
 
 const CalendarMap = (props) => {
   const { calendar, calendarData, currentDate, setSelectedDate } = props;
-
-  const recurse = (weeklyData) => {
-    const weeklyDataClone = weeklyData;
-    // let shouldLoop = false;
-    weeklyDataClone.forEach((d, i) => {
-      // console.log(i, d.id);
-      for (let weekRow = 0; weekRow < 12; weekRow++) {
-        const dataFilter = weeklyDataClone.filter((filteredData) => {
-          if (
-            filteredData.step === weekRow &&
-            filteredData.weekEnd >= d.weekStart
-          )
-            return true;
-          return false;
-        });
-        // console.log("data filter", dataFilter);
-        if (dataFilter.length === 0) {
-          weeklyDataClone[i] = { ...weeklyDataClone[i], step: weekRow };
-          break;
-        }
-      }
-    });
-    return weeklyDataClone;
-  };
 
   return (
     <div className="month">
@@ -69,22 +46,19 @@ const CalendarMap = (props) => {
             weekStart: weekStart,
             weekEnd: weekEnd,
             weekLength: weekEnd - weekStart + 1,
-            step: -1,
+            step: null,
           };
         });
 
-        const reorderedWeeklyData = recurse(weeklyData);
-
-        // console.log(reorderedWeeklyData);
-
-        const displayWeek = reorderedWeeklyData.map((fd, fdi) => {
+        const condensed = condenseCalendar(weeklyData);
+        const displayWeek = condensed.map((fd, fdi) => {
           const pctOfWeek = 14.285;
           return (
             <div key={fdi}>
               <div
                 className="test"
                 style={{
-                  top: 20 * (fd.step + 1),
+                  top: 21 * (fd.step + 1),
                   left: `${fd.weekStart * pctOfWeek}%`,
                   width: `${pctOfWeek * fd.weekLength}%`,
                   background: fd.color,
@@ -99,7 +73,6 @@ const CalendarMap = (props) => {
           );
         });
 
-        // console.log(weeklyData);
         return (
           <div className="week" key={weeki}>
             {displayWeek}
@@ -110,7 +83,8 @@ const CalendarMap = (props) => {
                   className="day"
                   style={{
                     background:
-                      !currentDate.isSame(day, "month") && "rgba(0, 0, 0, 0.1)",
+                      !currentDate.isSame(day, "month") &&
+                      "rgba(0, 0, 0, 0.15)",
                   }}
                   key={i}
                 >

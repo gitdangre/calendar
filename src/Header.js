@@ -8,7 +8,7 @@ import {
 } from "./helpers";
 
 const Header = (props) => {
-  const { currentDate, setCurrentDate } = props;
+  const { currentDate, setCurrentDate, modal, setModal } = props;
   return (
     <div className="header">
       <button
@@ -26,6 +26,14 @@ const Header = (props) => {
       >
         {`NEXT >`}
       </button>
+
+      <button
+        className="header-next"
+        onClick={() => setModal({ ...modal, open: true })}
+      >
+        {`NEW`}
+      </button>
+
       <div className="header-display">
         {selectedMonthName(currentDate)} {selectedYear(currentDate)}
       </div>

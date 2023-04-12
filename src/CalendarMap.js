@@ -2,7 +2,7 @@ import React from "react";
 
 import {
   daysBetweenUtc,
-  utcToMMDDYYYY,
+  // utcToMMDDYYYY,
   mmddyyyToUnixTimestamp,
   isoToUnixTimestamp,
   condenseCalendar,
@@ -64,10 +64,12 @@ const CalendarMap = (props) => {
                   background: fd.color,
                 }}
               >
-                {`${fd.id} ${fd.step} ${utcToMMDDYYYY(
+                {/* {`${fd.id}  ${utcToMMDDYYYY(
                   fd.startDT,
                   "mmdd"
-                )} to ${utcToMMDDYYYY(fd.endDT, "mmdd")}`}
+                )} to ${utcToMMDDYYYY(fd.endDT, "mmdd")}`} */}
+                <span className="userName">{fd.user}</span>
+                {fd.title}
               </div>
             </div>
           );
@@ -78,13 +80,22 @@ const CalendarMap = (props) => {
             {displayWeek}
 
             {week.map((day, i) => {
+              let isCurrentDay = false;
+              if (
+                day.isSame(new Date(), "day") &&
+                currentDate.isSame(day, "month")
+              ) {
+                isCurrentDay = true;
+              }
               return (
                 <div
                   className="day"
                   style={{
-                    background:
-                      !currentDate.isSame(day, "month") &&
-                      "rgba(0, 0, 0, 0.15)",
+                    background: !currentDate.isSame(day, "month")
+                      ? "rgba(0, 0, 0, 0.15)"
+                      : isCurrentDay
+                      ? "#CAE9F5"
+                      : "",
                   }}
                   key={i}
                 >
@@ -99,11 +110,7 @@ const CalendarMap = (props) => {
                   >
                     <span
                       style={{
-                        fontWeight:
-                          day.isSame(new Date(), "day") &&
-                          currentDate.isSame(day, "month")
-                            ? "bold"
-                            : "",
+                        fontWeight: isCurrentDay ? "bold" : "",
                       }}
                     >
                       {day.format("D")}

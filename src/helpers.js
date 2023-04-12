@@ -76,10 +76,9 @@ export const nextMonth = (currentDate) => {
 };
 
 export const condenseCalendar = (weeklyData) => {
-  const weeklyDataClone = weeklyData;
-  weeklyDataClone.forEach((d, i) => {
+  weeklyData.forEach((d, i) => {
     for (let weekRow = 0; weekRow <= 12; weekRow++) {
-      const dataFilter = weeklyDataClone.filter((filteredData) => {
+      const dataFilter = weeklyData.filter((filteredData) => {
         if (
           filteredData.step === weekRow &&
           filteredData.weekEnd >= d.weekStart
@@ -88,10 +87,10 @@ export const condenseCalendar = (weeklyData) => {
         return false;
       });
       if (dataFilter.length === 0) {
-        weeklyDataClone[i] = { ...weeklyDataClone[i], step: weekRow };
+        weeklyData[i] = { ...weeklyData[i], step: weekRow };
         break;
       }
     }
   });
-  return weeklyDataClone;
+  return weeklyData;
 };
